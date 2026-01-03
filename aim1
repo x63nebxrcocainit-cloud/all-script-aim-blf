@@ -1,618 +1,1017 @@
 -- ts file was generated at discord.gg/25ms
 
 
-local vu1 = game:GetService("RunService")
-local vu2 = game:GetService("UserInputService")
-local vu3 = game.Players.LocalPlayer
-local v4 = vu3:WaitForChild("PlayerGui")
-local vu5 = workspace.CurrentCamera
-local vu6 = 0.016
-local vu7 = false
-local vu8 = nil
-local vu9 = nil
-local vu10 = tick()
-local vu11 = nil
-vu3:WaitForChild("DataLoaded", 60)
-if not vu3.Character then
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetTeam", "Pirates")
-end
-local vu13 = (function()
-    local v12 = vu2.TouchEnabled
-    if v12 then
-        if vu2.MouseEnabled then
-            v12 = false
-        else
-            v12 = not vu2.KeyboardEnabled
+local v1 = {
+    Tab_1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/VanThanhIOS/OniiChanVanThanhIOS/refs/heads/main/main.txt"))():CreateWindow("V\196\131n Th\195\160nh Hub "):addTab("Home")
+}
+local v2 = v1.Tab_1:addSection():addMenu("Ch\225\187\169c N\196\131ng")
+getgenv().WalkSpeedValue = 26
+v2:addTextbox("Speed Hack", getgenv().WalkSpeedValue, function(p3)
+    getgenv().WalkSpeedValue = p3
+    if getgenv().WalkSpeedValue then
+        local vu4 = game:service("Players").LocalPlayer
+        vu4.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            vu4.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue
+        end)
+        vu4.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue
+    end
+end)
+getgenv().JumpValue = 50
+v2:addTextbox("Nh\225\186\163y Cao", getgenv().JumpValue, function(p5)
+    getgenv().JumpValue = p5
+    if getgenv().JumpValue then
+        game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = getgenv().JumpValue
+    end
+end)
+v2:addButton("Antilag + FPS", function()
+    local v6 = game
+    local v7 = v6.Workspace
+    local v8 = v6.Lighting
+    local v9 = v7.Terrain
+    v9.WaterWaveSize = 0
+    v9.WaterWaveSpeed = 0
+    v9.WaterReflectance = 0
+    v9.WaterTransparency = 0
+    v8.GlobalShadows = false
+    v8.FogEnd = 9000000000
+    v8.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+    local v10, v11, v12 = pairs(v6:GetDescendants())
+    local v13 = false
+    while true do
+        local v14
+        v12, v14 = v10(v11, v12)
+        if v12 == nil then
+            break
+        end
+        if v14:IsA("Part") or (v14:IsA("Union") or (v14:IsA("CornerWedgePart") or v14:IsA("TrussPart"))) then
+            v14.Material = "Plastic"
+            v14.Reflectance = 0
+        elseif v14:IsA("Decal") or v14:IsA("Texture") and v13 then
+            v14.Transparency = 1
+        elseif v14:IsA("ParticleEmitter") or v14:IsA("Trail") then
+            v14.Lifetime = NumberRange.new(0)
+        elseif v14:IsA("Explosion") then
+            v14.BlastPressure = 1
+            v14.BlastRadius = 1
+        elseif v14:IsA("Fire") or (v14:IsA("SpotLight") or (v14:IsA("Smoke") or v14:IsA("Sparkles"))) then
+            v14.Enabled = false
+        elseif v14:IsA("MeshPart") then
+            v14.Material = "Plastic"
+            v14.Reflectance = 0
+            v14.TextureID = 1.0385902758728956e16
         end
     end
-    return v12
-end)()
-task.wait(1)
-local v14 = Instance.new("ScreenGui")
-v14.Name = "LockOnGUI"
-v14.ResetOnSpawn = false
-v14.Parent = v4
-local v15 = Instance.new("TextButton")
-v15.Size = UDim2.new(0, 200, 0, 70)
-v15.AnchorPoint = Vector2.new(0.5, 0.5)
-v15.Position = UDim2.new(0.5, 0, 0, 20)
-v15.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-v15.Text = ""
-v15.AutoButtonColor = false
-v15.Active = true
-v15.Draggable = true
-local v16 = Instance.new("UICorner")
-v16.CornerRadius = UDim.new(0, 14)
-v16.Parent = v15
-v15.Parent = v14
-local v17 = Instance.new("TextButton")
-v17.Size = UDim2.new(0, 55, 0, 55)
-v17.Position = UDim2.new(1, - 60, 0.5, - 27.5)
-v17.BackgroundTransparency = 1
-v17.Text = "\226\154\153\239\184\143"
-v17.TextColor3 = Color3.fromRGB(255, 255, 255)
-v17.Font = Enum.Font.SourceSansBold
-v17.TextSize = 30
-v17.AutoButtonColor = false
-local v18 = Instance.new("UICorner")
-v18.CornerRadius = UDim.new(0, 12)
-v18.Parent = v17
-v17.Parent = v15
-local vu19 = Instance.new("TextLabel")
-vu19.Size = UDim2.new(1, - 80, 1, 0)
-vu19.Position = UDim2.new(0, 35, 0, 0)
-vu19.BackgroundTransparency = 1
-vu19.Text = "Run OFF"
-vu19.TextColor3 = Color3.fromRGB(255, 255, 255)
-vu19.Font = Enum.Font.SourceSansBold
-vu19.TextSize = 28
-vu19.TextXAlignment = Enum.TextXAlignment.Left
-vu19.Parent = v15
-local vu20 = Instance.new("TextLabel")
-vu20.Size = UDim2.new(0.9, 0, 0.2, 0)
-vu20.Position = UDim2.new(0.05, 0, 0.75, 0)
-vu20.BackgroundTransparency = 1
-vu20.TextColor3 = Color3.fromRGB(255, 0, 0)
-vu20.TextTransparency = 0.3
-vu20.Font = Enum.Font.SourceSansBold
-vu20.TextSize = 16
-vu20.Text = ""
-vu20.Visible = false
-vu20.Parent = v15
-local v21 = Instance.new("UICorner")
-v21.CornerRadius = UDim.new(0, 12)
-v21.Parent = vu20
-local vu22 = Instance.new("Frame")
-vu22.Size = UDim2.new(0, 260, 0, 340)
-vu22.Position = UDim2.new(0.5, - 180, 0.5, - 100)
-vu22.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-vu22.Visible = false
-vu22.Active = true
-vu22.Draggable = true
-local v23 = Instance.new("UICorner")
-v23.CornerRadius = UDim.new(0, 16)
-v23.Parent = vu22
-vu22.Parent = v14
-local v24 = Instance.new("ScrollingFrame")
-v24.Size = UDim2.new(0.9, 0, 0.75, 0)
-v24.Position = UDim2.new(0.05, 0, 0.15, 0)
-v24.BackgroundTransparency = 1
-v24.ScrollingDirection = Enum.ScrollingDirection.Y
-v24.AutomaticCanvasSize = Enum.AutomaticSize.Y
-v24.ScrollBarThickness = 6
-v24.CanvasSize = UDim2.new(0, 0, 0, 0)
-v24.Parent = vu22
-local v25 = Instance.new("UIListLayout")
-v25.SortOrder = Enum.SortOrder.LayoutOrder
-v25.Padding = UDim.new(0, 10)
-v25.Parent = v24
-local v26 = Instance.new("TextLabel")
-v26.Size = UDim2.new(1, 0, 0, 45)
-v26.BackgroundTransparency = 1
-v26.Text = "Krovyn Hub"
-v26.TextColor3 = Color3.fromRGB(255, 0, 0)
-v26.TextTransparency = 0
-v26.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-v26.TextStrokeTransparency = 0
-v26.Font = Enum.Font.SourceSansBold
-v26.TextSize = 32
-v26.Parent = vu22
-local v27 = Instance.new("TextButton")
-v27.Size = UDim2.new(0, 38, 0, 38)
-v27.Position = UDim2.new(1, - 45, 0, 4)
-v27.BackgroundTransparency = 1
-v27.Text = "X"
-v27.TextColor3 = Color3.fromRGB(255, 100, 100)
-v27.Font = Enum.Font.SourceSansBold
-v27.TextSize = 24
-v27.Parent = vu22
-local function v39(p28, p29, p30, pu31)
-    local v32 = Instance.new("Frame", p28)
-    v32.Size = UDim2.new(1, - 10, 0, 30)
-    v32.BackgroundTransparency = 0.5
-    v32.BackgroundColor3 = Color3.new(0, 0, 0)
-    Instance.new("UICorner", v32).CornerRadius = UDim.new(0, 13)
-    local v33 = Instance.new("TextLabel", v32)
-    v33.Size = UDim2.new(0.6, 0, 1, 0)
-    v33.Position = UDim2.new(0, 0, 0, 0)
-    v33.BackgroundTransparency = 1
-    v33.Text = p29
-    v33.TextXAlignment = Enum.TextXAlignment.Left
-    v33.Font = Enum.Font.GothamBold
-    v33.TextSize = 14
-    v33.TextColor3 = Color3.new(1, 1, 1)
-    local vu34 = Instance.new("Frame", v32)
-    vu34.Size = UDim2.new(0, 50, 0, 24)
-    vu34.Position = UDim2.new(1, - 60, 0.5, - 12)
-    vu34.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    vu34.BackgroundTransparency = 0.3
-    vu34.Name = "SwitchBase"
-    Instance.new("UICorner", vu34).CornerRadius = UDim.new(1, 0)
-    local vu35 = Instance.new("Frame", vu34)
-    vu35.Size = UDim2.new(0, 20, 0, 20)
-    vu35.Position = UDim2.new(0, 2, 0.5, - 10)
-    vu35.BackgroundColor3 = Color3.new(1, 1, 1)
-    Instance.new("UICorner", vu35).CornerRadius = UDim.new(1, 0)
-    local vu36 = p30 or false
-    local function vu37()
-        if vu36 then
-            vu34.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-            vu35:TweenPosition(UDim2.new(1, - 22, 0.5, - 10), "Out", "Quad", 0.2, true)
-        else
-            vu34.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            vu35:TweenPosition(UDim2.new(0, 2, 0.5, - 10), "Out", "Quad", 0.2, true)
+    local v15, v16, v17 = pairs(v8:GetChildren())
+    while true do
+        local v18
+        v17, v18 = v15(v16, v17)
+        if v17 == nil then
+            break
+        end
+        if v18:IsA("BlurEffect") or (v18:IsA("SunRaysEffect") or (v18:IsA("ColorCorrectionEffect") or (v18:IsA("BloomEffect") or v18:IsA("DepthOfFieldEffect")))) then
+            v18.Enabled = false
         end
     end
-    vu34.InputBegan:Connect(function(p38)
-        if p38.UserInputType == Enum.UserInputType.MouseButton1 or p38.UserInputType == Enum.UserInputType.Touch then
-            vu36 = not vu36
-            vu37()
-            if pu31 then
-                pu31(vu36)
-            end
+end)
+v2:addButton("Esp Box Player", function()
+    local v19 = game:GetService("Workspace")
+    local vu20 = game:GetService("Players").LocalPlayer
+    local vu21 = v19.CurrentCamera
+    local vu22 = true
+    local vu23 = Color3.fromRGB(255, 0, 0)
+    local vu24 = 1.4
+    local vu25 = 1
+    local vu26 = Color3.fromRGB(255, 255, 255)
+    local vu27 = Color3.fromRGB(227, 52, 52)
+    local vu28 = Color3.fromRGB(88, 217, 24)
+    local function vu30()
+        local v29 = Drawing.new("Line")
+        v29.Visible = false
+        v29.From = Vector2.new(0, 0)
+        v29.To = Vector2.new(1, 1)
+        v29.Color = vu23
+        v29.Thickness = vu24
+        v29.Transparency = vu25
+        return v29
+    end
+    local v31, v32, v33 = pairs(game.Players:GetChildren())
+    local vu34 = vu24
+    local vu35 = 1
+    local vu36 = true
+    local vu37 = false
+    local vu38 = false
+    local vu39 = 1.4
+    while true do
+        local vu40
+        v33, vu40 = v31(v32, v33)
+        if v33 == nil then
+            break
         end
+        local vu41 = {
+            line1 = vu30(),
+            line2 = vu30(),
+            line3 = vu30(),
+            line4 = vu30(),
+            line5 = vu30(),
+            line6 = vu30(),
+            line7 = vu30(),
+            line8 = vu30(),
+            line9 = vu30(),
+            line10 = vu30(),
+            line11 = vu30(),
+            line12 = vu30(),
+            Tracer = vu30()
+        }
+        vu41.Tracer.Color = vu26
+        vu41.Tracer.Thickness = vu39
+        vu41.Tracer.Transparency = vu35
+        local function v85()
+            local vu42 = nil
+            local _ = game:GetService("RunService").RenderStepped:Connect(function()
+                if vu22 and vu40.Character ~= nil and (vu40.Character:FindFirstChild("Humanoid") ~= nil and (vu40.Character:FindFirstChild("HumanoidRootPart") ~= nil and (vu40.Name ~= vu20.Name and vu40.Character.Humanoid.Health > 0) and vu40.Character:FindFirstChild("Head") ~= nil)) then
+                    local _, v43 = vu21:WorldToViewportPoint(vu40.Character.HumanoidRootPart.Position)
+                    if v43 then
+                        local v44 = vu40.Character.Head.Size.Y / 2
+                        local v45 = Vector3.new(2, 3, 1.5) * (v44 * 2)
+                        local v46 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(- v45.X, v45.Y, - v45.Z)).p)
+                        local v47 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(- v45.X, v45.Y, v45.Z)).p)
+                        local v48 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(v45.X, v45.Y, v45.Z)).p)
+                        local v49 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(v45.X, v45.Y, - v45.Z)).p)
+                        local v50 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(- v45.X, - v45.Y, - v45.Z)).p)
+                        local v51 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(- v45.X, - v45.Y, v45.Z)).p)
+                        local v52 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(v45.X, - v45.Y, v45.Z)).p)
+                        local v53 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(v45.X, - v45.Y, - v45.Z)).p)
+                        vu41.line1.From = Vector2.new(v46.X, v46.Y)
+                        vu41.line1.To = Vector2.new(v47.X, v47.Y)
+                        vu41.line2.From = Vector2.new(v47.X, v47.Y)
+                        vu41.line2.To = Vector2.new(v48.X, v48.Y)
+                        vu41.line3.From = Vector2.new(v48.X, v48.Y)
+                        vu41.line3.To = Vector2.new(v49.X, v49.Y)
+                        vu41.line4.From = Vector2.new(v49.X, v49.Y)
+                        vu41.line4.To = Vector2.new(v46.X, v46.Y)
+                        vu41.line5.From = Vector2.new(v50.X, v50.Y)
+                        vu41.line5.To = Vector2.new(v51.X, v51.Y)
+                        vu41.line6.From = Vector2.new(v51.X, v51.Y)
+                        vu41.line6.To = Vector2.new(v52.X, v52.Y)
+                        vu41.line7.From = Vector2.new(v52.X, v52.Y)
+                        vu41.line7.To = Vector2.new(v53.X, v53.Y)
+                        vu41.line8.From = Vector2.new(v53.X, v53.Y)
+                        vu41.line8.To = Vector2.new(v50.X, v50.Y)
+                        vu41.line9.From = Vector2.new(v50.X, v50.Y)
+                        vu41.line9.To = Vector2.new(v46.X, v46.Y)
+                        vu41.line10.From = Vector2.new(v51.X, v51.Y)
+                        vu41.line10.To = Vector2.new(v47.X, v47.Y)
+                        vu41.line11.From = Vector2.new(v52.X, v52.Y)
+                        vu41.line11.To = Vector2.new(v48.X, v48.Y)
+                        vu41.line12.From = Vector2.new(v53.X, v53.Y)
+                        vu41.line12.To = Vector2.new(v49.X, v49.Y)
+                        if vu36 then
+                            local v54 = vu21:WorldToViewportPoint((vu40.Character.HumanoidRootPart.CFrame * CFrame.new(0, - v45.Y, 0)).p)
+                            vu41.Tracer.From = Vector2.new(vu21.ViewportSize.X / 2, vu21.ViewportSize.Y)
+                            vu41.Tracer.To = Vector2.new(v54.X, v54.Y)
+                        end
+                        if vu37 then
+                            if vu40.TeamColor ~= vu20.TeamColor then
+                                local v55, v56, v57 = pairs(vu41)
+                                while true do
+                                    local v58
+                                    v57, v58 = v55(v56, v57)
+                                    if v57 == nil then
+                                        break
+                                    end
+                                    v58.Color = vu27
+                                end
+                            else
+                                local v59, v60, v61 = pairs(vu41)
+                                while true do
+                                    local v62
+                                    v61, v62 = v59(v60, v61)
+                                    if v61 == nil then
+                                        break
+                                    end
+                                    v62.Color = vu28
+                                end
+                            end
+                        end
+                        if vu38 then
+                            local v63 = (vu20.Character.HumanoidRootPart.Position - vu40.Character.HumanoidRootPart.Position).magnitude
+                            local v64 = math.clamp(1 / v63 * 100, 0.1, 4)
+                            local v65, v66, v67 = pairs(vu41)
+                            while true do
+                                local v68
+                                v67, v68 = v65(v66, v67)
+                                if v67 == nil then
+                                    break
+                                end
+                                v68.Thickness = v64
+                            end
+                        else
+                            local v69, v70, v71 = pairs(vu41)
+                            while true do
+                                local v72
+                                v71, v72 = v69(v70, v71)
+                                if v71 == nil then
+                                    break
+                                end
+                                v72.Thickness = vu34
+                            end
+                        end
+                        local v73, v74, v75 = pairs(vu41)
+                        while true do
+                            local v76
+                            v75, v76 = v73(v74, v75)
+                            if v75 == nil then
+                                break
+                            end
+                            if v76 ~= vu41.Tracer then
+                                v76.Visible = true
+                            end
+                        end
+                        if vu36 then
+                            vu41.Tracer.Visible = true
+                        end
+                    else
+                        local v77, v78, v79 = pairs(vu41)
+                        while true do
+                            local v80
+                            v79, v80 = v77(v78, v79)
+                            if v79 == nil then
+                                break
+                            end
+                            v80.Visible = false
+                        end
+                    end
+                else
+                    local v81, v82, v83 = pairs(vu41)
+                    while true do
+                        local v84
+                        v83, v84 = v81(v82, v83)
+                        if v83 == nil then
+                            break
+                        end
+                        v84.Visible = false
+                    end
+                    if game.Players:FindFirstChild(vu40.Name) == nil then
+                        vu42:Disconnect()
+                    end
+                end
+            end)
+        end
+        coroutine.wrap(v85)()
+    end
+    game.Players.PlayerAdded:Connect(function(pu86)
+        local vu87 = {
+            line1 = vu30(),
+            line2 = vu30(),
+            line3 = vu30(),
+            line4 = vu30(),
+            line5 = vu30(),
+            line6 = vu30(),
+            line7 = vu30(),
+            line8 = vu30(),
+            line9 = vu30(),
+            line10 = vu30(),
+            line11 = vu30(),
+            line12 = vu30(),
+            Tracer = vu30()
+        }
+        vu87.Tracer.Color = vu26
+        vu87.Tracer.Thickness = vu39
+        vu87.Tracer.Transparency = vu35
+        local function v131()
+            local vu88 = nil
+            local _ = game:GetService("RunService").RenderStepped:Connect(function()
+                if vu22 and pu86.Character ~= nil and (pu86.Character:FindFirstChild("Humanoid") ~= nil and (pu86.Character:FindFirstChild("HumanoidRootPart") ~= nil and (pu86.Name ~= vu20.Name and pu86.Character.Humanoid.Health > 0) and pu86.Character:FindFirstChild("Head") ~= nil)) then
+                    local _, v89 = vu21:WorldToViewportPoint(pu86.Character.HumanoidRootPart.Position)
+                    if v89 then
+                        local v90 = pu86.Character.Head.Size.Y / 2
+                        local v91 = Vector3.new(2, 3, 1.5) * (v90 * 2)
+                        local v92 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(- v91.X, v91.Y, - v91.Z)).p)
+                        local v93 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(- v91.X, v91.Y, v91.Z)).p)
+                        local v94 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(v91.X, v91.Y, v91.Z)).p)
+                        local v95 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(v91.X, v91.Y, - v91.Z)).p)
+                        local v96 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(- v91.X, - v91.Y, - v91.Z)).p)
+                        local v97 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(- v91.X, - v91.Y, v91.Z)).p)
+                        local v98 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(v91.X, - v91.Y, v91.Z)).p)
+                        local v99 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(v91.X, - v91.Y, - v91.Z)).p)
+                        vu87.line1.From = Vector2.new(v92.X, v92.Y)
+                        vu87.line1.To = Vector2.new(v93.X, v93.Y)
+                        vu87.line2.From = Vector2.new(v93.X, v93.Y)
+                        vu87.line2.To = Vector2.new(v94.X, v94.Y)
+                        vu87.line3.From = Vector2.new(v94.X, v94.Y)
+                        vu87.line3.To = Vector2.new(v95.X, v95.Y)
+                        vu87.line4.From = Vector2.new(v95.X, v95.Y)
+                        vu87.line4.To = Vector2.new(v92.X, v92.Y)
+                        vu87.line5.From = Vector2.new(v96.X, v96.Y)
+                        vu87.line5.To = Vector2.new(v97.X, v97.Y)
+                        vu87.line6.From = Vector2.new(v97.X, v97.Y)
+                        vu87.line6.To = Vector2.new(v98.X, v98.Y)
+                        vu87.line7.From = Vector2.new(v98.X, v98.Y)
+                        vu87.line7.To = Vector2.new(v99.X, v99.Y)
+                        vu87.line8.From = Vector2.new(v99.X, v99.Y)
+                        vu87.line8.To = Vector2.new(v96.X, v96.Y)
+                        vu87.line9.From = Vector2.new(v96.X, v96.Y)
+                        vu87.line9.To = Vector2.new(v92.X, v92.Y)
+                        vu87.line10.From = Vector2.new(v97.X, v97.Y)
+                        vu87.line10.To = Vector2.new(v93.X, v93.Y)
+                        vu87.line11.From = Vector2.new(v98.X, v98.Y)
+                        vu87.line11.To = Vector2.new(v94.X, v94.Y)
+                        vu87.line12.From = Vector2.new(v99.X, v99.Y)
+                        vu87.line12.To = Vector2.new(v95.X, v95.Y)
+                        if vu36 then
+                            local v100 = vu21:WorldToViewportPoint((pu86.Character.HumanoidRootPart.CFrame * CFrame.new(0, - v91.Y, 0)).p)
+                            vu87.Tracer.From = Vector2.new(vu21.ViewportSize.X / 2, vu21.ViewportSize.Y)
+                            vu87.Tracer.To = Vector2.new(v100.X, v100.Y)
+                        end
+                        if vu37 then
+                            if pu86.TeamColor ~= vu20.TeamColor then
+                                local v101, v102, v103 = pairs(vu87)
+                                while true do
+                                    local v104
+                                    v103, v104 = v101(v102, v103)
+                                    if v103 == nil then
+                                        break
+                                    end
+                                    v104.Color = vu27
+                                end
+                            else
+                                local v105, v106, v107 = pairs(vu87)
+                                while true do
+                                    local v108
+                                    v107, v108 = v105(v106, v107)
+                                    if v107 == nil then
+                                        break
+                                    end
+                                    v108.Color = vu28
+                                end
+                            end
+                        end
+                        if vu38 then
+                            local v109 = (vu20.Character.HumanoidRootPart.Position - pu86.Character.HumanoidRootPart.Position).magnitude
+                            local v110 = math.clamp(1 / v109 * 100, 0.1, 4)
+                            local v111, v112, v113 = pairs(vu87)
+                            while true do
+                                local v114
+                                v113, v114 = v111(v112, v113)
+                                if v113 == nil then
+                                    break
+                                end
+                                v114.Thickness = v110
+                            end
+                        else
+                            local v115, v116, v117 = pairs(vu87)
+                            while true do
+                                local v118
+                                v117, v118 = v115(v116, v117)
+                                if v117 == nil then
+                                    break
+                                end
+                                v118.Thickness = vu34
+                            end
+                        end
+                        local v119, v120, v121 = pairs(vu87)
+                        while true do
+                            local v122
+                            v121, v122 = v119(v120, v121)
+                            if v121 == nil then
+                                break
+                            end
+                            if v122 ~= vu87.Tracer then
+                                v122.Visible = true
+                            end
+                        end
+                        if vu36 then
+                            vu87.Tracer.Visible = true
+                        end
+                    else
+                        local v123, v124, v125 = pairs(vu87)
+                        while true do
+                            local v126
+                            v125, v126 = v123(v124, v125)
+                            if v125 == nil then
+                                break
+                            end
+                            v126.Visible = false
+                        end
+                    end
+                else
+                    local v127, v128, v129 = pairs(vu87)
+                    while true do
+                        local v130
+                        v129, v130 = v127(v128, v129)
+                        if v129 == nil then
+                            break
+                        end
+                        v130.Visible = false
+                    end
+                    if game.Players:FindFirstChild(pu86.Name) == nil then
+                        vu88:Disconnect()
+                    end
+                end
+            end)
+        end
+        coroutine.wrap(v131)()
     end)
-    vu37()
-    return v32
-end
-local function v47(p40, p41, p42, pu43)
-    local v44 = Instance.new("Frame", p40)
-    v44.Size = UDim2.new(1, - 10, 0, 30)
-    v44.BackgroundTransparency = 0.5
-    v44.BackgroundColor3 = Color3.new(0, 0, 0)
-    Instance.new("UICorner", v44).CornerRadius = UDim.new(0, 13)
-    local v45 = Instance.new("TextLabel", v44)
-    v45.Size = UDim2.new(0.6, 0, 1, 0)
-    v45.Position = UDim2.new(0, 0, 0, 0)
-    v45.BackgroundTransparency = 1
-    v45.Text = p41
-    v45.TextXAlignment = Enum.TextXAlignment.Left
-    v45.Font = Enum.Font.GothamBold
-    v45.TextSize = 14
-    v45.TextColor3 = Color3.new(1, 1, 1)
-    local vu46 = Instance.new("TextBox", v44)
-    vu46.Size = UDim2.new(0, 50, 0, 24)
-    vu46.Position = UDim2.new(1, - 60, 0.5, - 12)
-    vu46.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    vu46.BackgroundTransparency = 0.3
-    vu46.Text = p42 or ""
-    vu46.Font = Enum.Font.GothamBold
-    vu46.TextSize = 14
-    vu46.TextColor3 = Color3.new(1, 1, 1)
-    vu46.PlaceholderText = "enter..."
-    vu46.ClearTextOnFocus = false
-    Instance.new("UICorner", vu46).CornerRadius = UDim.new(1, 0)
-    vu46.FocusLost:Connect(function()
-        if pu43 then
-            pu43(vu46.Text)
-        end
-    end)
-    return v44
-end
-local vu48 = true
-v39(v24, "Cam Lock", true, function(p49)
-    vu48 = p49
 end)
-v47(v24, "Prediction Strength", "0.016", function(p50)
-    vu6 = p50
-end)
-local vu51 = nil
-v39(v24, "Box ESP V1", false, function(p52)
-    vu51 = p52
-end)
-local function vu56(p53)
-    if vu3.Character and vu3.Character:FindFirstChild("HumanoidRootPart") then
-        local v54 = p53.Character.HumanoidRootPart
-        if not v54:FindFirstChild("BoxESP") then
-            local v55 = Instance.new("BoxHandleAdornment")
-            v55.Name = "BoxESP"
-            v55.Size = Vector3.new(4, 7, 2)
-            v55.Color3 = Color3.new(1, 0, 0)
-            v55.Transparency = 0.5
-            v55.AlwaysOnTop = true
-            v55.ZIndex = 5
-            v55.Adornee = v54
-            v55.Parent = v54
-        end
-    else
-        return
-    end
-end
-task.spawn(function()
-    while task.wait(0.1) do
-        if vu51 then
-            local v57, v58, v59 = ipairs(game.Players:GetPlayers())
-            while true do
-                local v60
-                v59, v60 = v57(v58, v59)
-                if v59 == nil then
-                    break
-                end
-                if v60 ~= vu3 and v60.Character then
-                    local v61 = v60.Character:FindFirstChild("HumanoidRootPart")
-                    if v61 then
-                        vu56(v60, v61)
-                    end
-                end
+v2:addButton("Esp Name Player", function()
+    local vu132 = workspace.CurrentCamera
+    local v133 = game:GetService("Players")
+    local v134 = v133.LocalPlayer
+    local vu135 = game:GetService("RunService")
+    local function vu149(pu136, p137)
+        local vu138 = p137:WaitForChild("Humanoid")
+        local vu139 = p137:WaitForChild("Head")
+        local vu140 = Drawing.new("Text")
+        vu140.Visible = false
+        vu140.Center = true
+        vu140.Outline = false
+        vu140.Font = 3
+        vu140.Size = 16.16
+        vu140.Color = Color3.new(0, 255, 255)
+        local vu141 = nil
+        local vu142 = nil
+        local vu143 = nil
+        local function vu144()
+            vu140.Visible = false
+            vu140:Remove()
+            if vu141 then
+                vu141:Disconnect()
+                vu141 = nil
             end
-        else
-            local v62, v63, v64 = ipairs(game.Players:GetPlayers())
-            while true do
-                local v65
-                v64, v65 = v62(v63, v64)
-                if v64 == nil then
-                    break
-                end
-                if v65.Character then
-                    local v66 = v65.Character:FindFirstChild("HumanoidRootPart")
-                    if v66 and v66:FindFirstChild("BoxESP") then
-                        v66.BoxESP:Destroy()
-                    end
-                end
+            if vu142 then
+                vu142:Disconnect()
+                vu142 = nil
+            end
+            if vu143 then
+                vu143:Disconnect()
+                vu143 = nil
             end
         end
-    end
-end)
-local vu67 = false
-v39(v24, "Fast Attack", false, function(p68)
-    vu67 = p68
-end)
-local function vu71(p69)
-    if not p69 then
-        return false
-    end
-    local v70 = p69:FindFirstChild("Humanoid")
-    if v70 then
-        v70 = v70.Health > 0
-    end
-    return v70
-end
-local function vu88(p72, p73)
-    local v74 = game:GetService("Workspace").Enemies:GetChildren()
-    local v75 = game.Players:GetPlayers()
-    local v76 = p72:GetPivot().Position
-    local v77, v78, v79 = ipairs(v74)
-    local v80 = {}
-    while true do
-        local v81
-        v79, v81 = v77(v78, v79)
-        if v79 == nil then
-            break
-        end
-        local v82 = v81:FindFirstChild("HumanoidRootPart")
-        if v82 and (vu71(v81) and (v82.Position - v76).Magnitude <= p73) then
-            table.insert(v80, v81)
-        end
-    end
-    local v83, v84, v85 = ipairs(v75)
-    while true do
-        local v86
-        v85, v86 = v83(v84, v85)
-        if v85 == nil then
-            break
-        end
-        if v86 ~= vu3 and v86.Character then
-            local v87 = v86.Character:FindFirstChild("HumanoidRootPart")
-            if v87 and (vu71(v86.Character) and (v87.Position - v76).Magnitude <= p73) then
-                table.insert(v80, v86.Character)
+        vu142 = p137.AncestryChanged:Connect(function(_, p145)
+            if not p145 then
+                vu144()
             end
-        end
-    end
-    return v80
-end
-local vu89 = 60
-local function vu114()
-    local v90 = vu3.Character
-    if not v90:FindFirstChild("HumanoidRootPart") then
-        return
-    end
-    local v91, v92, v93 = ipairs(v90:GetChildren())
-    local v94 = nil
-    while true do
-        local v95
-        v93, v95 = v91(v92, v93)
-        if v93 == nil then
-            v95 = v94
-            break
-        end
-        if v95:IsA("Tool") then
-            break
-        end
-    end
-    if v95 then
-        local v96 = vu88(v90, vu89)
-        if v95:FindFirstChild("LeftClickRemote") then
-            local v97, v98, v99 = ipairs(v96)
-            local v100 = 1
-            while true do
-                local v101, v102 = v97(v98, v99)
-                if v101 == nil then
-                    break
-                end
-                v99 = v101
-                local v103 = v102:FindFirstChild("HumanoidRootPart")
-                if v103 then
-                    local v104 = (v103.Position - v90:GetPivot().Position).Unit
-                    v95.LeftClickRemote:FireServer(v104, v100)
-                    v100 = v100 + 1
-                end
+        end)
+        vu143 = vu138.HealthChanged:Connect(function(p146)
+            if p146 <= 0 or vu138:GetState() == Enum.HumanoidStateType.Dead then
+                vu144()
             end
-        else
-            local v105, v106, v107 = ipairs(v96)
-            local vu108 = {}
-            local vu109 = nil
-            while true do
-                local v110
-                v107, v110 = v105(v106, v107)
-                if v107 == nil then
-                    break
-                end
-                if not v110:GetAttribute("IsBoat") then
-                    local v111 = v110:FindFirstChild("Head")
-                    if v111 then
-                        table.insert(vu108, {
-                            v110,
-                            v111
-                        })
-                        vu109 = v111
-                    end
-                end
-            end
-            if vu109 then
-                local vu112 = game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Net"):WaitForChild("RE/RegisterAttack")
-                local vu113 = game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Net"):WaitForChild("RE/RegisterHit")
-                pcall(function()
-                    vu112:FireServer(0.1)
-                    vu113:FireServer(vu109, vu108)
-                end)
-            end
-        end
-    end
-end
-task.spawn(function()
-    while task.wait(0.1) do
-        if vu67 and vu7 then
-            vu114()
-        end
-    end
-end)
-local vu115 = true
-v39(v24, "Auto v3", true, function(p116)
-    vu115 = p116
-end)
-task.spawn(function()
-    while task.wait(0.5) do
-        pcall(function()
-            if vu115 and vu7 then
-                game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("ActivateAbility")
+        end)
+        vu141 = vu135.RenderStepped:Connect(function()
+            local v147, v148 = vu132:WorldToViewportPoint(vu139.Position)
+            if v148 then
+                vu140.Position = Vector2.new(v147.X, v147.Y - 27)
+                vu140.Text = "[ " .. pu136.Name .. " ]"
+                vu140.Visible = true
+            else
+                vu140.Visible = false
             end
         end)
     end
-end)
-local vu117 = true
-v39(v24, "Auto v4", true, function(p118)
-    vu117 = p118
-end)
-task.spawn(function()
+    local function v152(pu150)
+        if pu150.Character then
+            vu149(pu150, pu150.Character)
+        end
+        pu150.CharacterAdded:Connect(function(p151)
+            vu149(pu150, p151)
+        end)
+    end
+    local v153 = next
+    local v154, v155 = v133:GetPlayers()
     while true do
-        repeat
-            task.wait(0.5)
-        until vu117 and vu7
-        local v119 = game.Players.LocalPlayer.Character
-        if v119 and (v119:FindFirstChild("RaceEnergy") and (v119.RaceEnergy.Value >= 1 and not v119.RaceTransformed.Value)) then
-            local v120 = game:GetService("VirtualInputManager")
-            v120:SendKeyEvent(true, "Y", false, game)
-            task.wait(0.1)
-            v120:SendKeyEvent(false, "Y", false, game)
-        end
-    end
-end)
-local vu121 = nil
-local function vu124()
-    local v122 = vu3.Character
-    local vu123 = v122 and v122:FindFirstChildOfClass("Humanoid")
-    if vu123 then
-        if speedHack and walkSpeed then
-            if vu121 then
-                vu121:Disconnect()
-            end
-            vu123.WalkSpeed = walkSpeed
-            vu121 = vu123:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-                if speedHack then
-                    vu123.WalkSpeed = walkSpeed
-                end
-            end)
-        else
-            vu123.WalkSpeed = 16
-            if vu121 then
-                vu121:Disconnect()
-            end
-        end
-    end
-end
-v39(v24, "Speed Hack", false, function(p125)
-    speedHack = p125
-    vu124()
-end)
-v47(v24, "Speed Value", "16", function(p126)
-    local v127 = tonumber(p126)
-    if v127 and 0 <= v127 then
-        walkSpeed = v127
-        vu124()
-    end
-end)
-local vu128 = nil
-local function vu131()
-    local v129 = vu3.Character
-    local vu130 = v129 and v129:FindFirstChildOfClass("Humanoid")
-    if vu130 then
-        if jumpHack and jumpPower then
-            if vu128 then
-                vu128:Disconnect()
-            end
-            vu130.UseJumpPower = true
-            vu130.JumpPower = jumpPower
-            print(jumpPower)
-            vu128 = vu130:GetPropertyChangedSignal("JumpPower"):Connect(function()
-                if jumpHack then
-                    vu130.JumpPower = jumpPower
-                end
-            end)
-        else
-            vu130.JumpPower = 50
-            if vu128 then
-                vu128:Disconnect()
-            end
-        end
-    end
-end
-v39(v24, "Jump Hack", false, function(p132)
-    jumpHack = p132
-    vu131()
-end)
-v47(v24, "Jump Value", "50", function(p133)
-    local v134 = tonumber(p133)
-    if v134 and 0 <= v134 then
-        jumpPower = v134
-        vu131()
-    end
-end);
-(function(p135, p136)
-    local v137 = Instance.new("TextButton")
-    v137.Size = UDim2.new(1, - 10, 0, 30)
-    v137.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    v137.BackgroundTransparency = 0.3
-    v137.TextColor3 = Color3.new(1, 1, 1)
-    v137.Text = p136
-    v137.Font = Enum.Font.GothamBold
-    v137.TextSize = 14
-    v137.Parent = p135
-    Instance.new("UICorner", v137).CornerRadius = UDim.new(0, 13)
-    return v137
-end)(v24, "Fix CameraShake").MouseButton1Click:Connect(function()
-    local v138 = game:GetService("ReplicatedStorage"):WaitForChild("Util", 5)
-    local v139 = v138 and v138:FindFirstChild("CameraShaker")
-    if v139 then
-        require(v139):Stop()
-    end
-end)
-local function vu140()
-    if vu8 and vu7 then
-        vu20.Text = "target:  " .. vu8.Name
-        vu20.Visible = true
-    else
-        vu20.Text = ""
-        vu20.Visible = false
-    end
-end
-local function vu153()
-    local v141 = math.huge
-    local v142 = vu5.CFrame.Position
-    local v143 = vu5.CFrame.LookVector
-    local v144, v145, v146 = ipairs(game.Players:GetPlayers())
-    local v147 = nil
-    while true do
-        local v148
-        v146, v148 = v144(v145, v146)
-        if v146 == nil then
+        local v156
+        v155, v156 = v153(v154, v155)
+        if v155 == nil then
             break
         end
-        if v148 ~= vu3 and v148.Character then
-            local v149 = v148.Character:FindFirstChild("HumanoidRootPart")
-            local v150 = v148.Character:FindFirstChild("Humanoid")
-            if v149 and (v150 and v150.Health > 0) then
-                local v151 = v149.Position - v142
-                local v152 = v151.Magnitude
-                if v143:Dot(v151.Unit) > 0.6 then
-                    if v152 < v141 then
-                        v147 = v148
-                        v141 = v152
+        if v156 ~= v134 then
+            v152(v156)
+        end
+    end
+    v133.PlayerAdded:Connect(v152)
+end)
+v2:addButton("Fly Bay", function()
+    local vu157 = Instance.new("ScreenGui")
+    local v158 = Instance.new("Frame")
+    local vu159 = Instance.new("TextButton")
+    local vu160 = Instance.new("TextButton")
+    local vu161 = Instance.new("TextButton")
+    local v162 = Instance.new("TextLabel")
+    local vu163 = Instance.new("TextButton")
+    local vu164 = Instance.new("TextLabel")
+    local vu165 = Instance.new("TextButton")
+    local vu166 = Instance.new("TextButton")
+    local vu167 = Instance.new("TextButton")
+    local vu168 = Instance.new("TextButton")
+    vu157.Name = "main"
+    vu157.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    vu157.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    vu157.ResetOnSpawn = false
+    v158.Parent = vu157
+    v158.BackgroundColor3 = Color3.fromRGB(163, 255, 137)
+    v158.BorderColor3 = Color3.fromRGB(103, 221, 213)
+    v158.Position = UDim2.new(0.100320168, 0, 0.379746825, 0)
+    v158.Size = UDim2.new(0, 190, 0, 57)
+    vu159.Name = "up"
+    vu159.Parent = v158
+    vu159.BackgroundColor3 = Color3.fromRGB(79, 255, 152)
+    vu159.Size = UDim2.new(0, 44, 0, 28)
+    vu159.Font = Enum.Font.SourceSans
+    vu159.Text = "UP"
+    vu159.TextColor3 = Color3.fromRGB(0, 0, 0)
+    vu159.TextSize = 14
+    vu160.Name = "down"
+    vu160.Parent = v158
+    vu160.BackgroundColor3 = Color3.fromRGB(215, 255, 121)
+    vu160.Position = UDim2.new(0, 0, 0.491228074, 0)
+    vu160.Size = UDim2.new(0, 44, 0, 28)
+    vu160.Font = Enum.Font.SourceSans
+    vu160.Text = "DOWN"
+    vu160.TextColor3 = Color3.fromRGB(0, 0, 0)
+    vu160.TextSize = 14
+    vu161.Name = "onof"
+    vu161.Parent = v158
+    vu161.BackgroundColor3 = Color3.fromRGB(255, 249, 74)
+    vu161.Position = UDim2.new(0.702823281, 0, 0.491228074, 0)
+    vu161.Size = UDim2.new(0, 56, 0, 28)
+    vu161.Font = Enum.Font.SourceSans
+    vu161.Text = "fly"
+    vu161.TextColor3 = Color3.fromRGB(0, 0, 0)
+    vu161.TextSize = 14
+    v162.Parent = v158
+    v162.BackgroundColor3 = Color3.fromRGB(242, 60, 255)
+    v162.Position = UDim2.new(0.469327301, 0, 0, 0)
+    v162.Size = UDim2.new(0, 100, 0, 28)
+    v162.Font = Enum.Font.SourceSans
+    v162.Text = "Luxucac"
+    v162.TextColor3 = Color3.fromRGB(0, 0, 0)
+    v162.TextScaled = true
+    v162.TextSize = 14
+    v162.TextWrapped = true
+    vu163.Name = "plus"
+    vu163.Parent = v158
+    vu163.BackgroundColor3 = Color3.fromRGB(133, 145, 255)
+    vu163.Position = UDim2.new(0.231578946, 0, 0, 0)
+    vu163.Size = UDim2.new(0, 45, 0, 28)
+    vu163.Font = Enum.Font.SourceSans
+    vu163.Text = "+"
+    vu163.TextColor3 = Color3.fromRGB(0, 0, 0)
+    vu163.TextScaled = true
+    vu163.TextSize = 14
+    vu163.TextWrapped = true
+    vu164.Name = "speed"
+    vu164.Parent = v158
+    vu164.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+    vu164.Position = UDim2.new(0.468421042, 0, 0.491228074, 0)
+    vu164.Size = UDim2.new(0, 44, 0, 28)
+    vu164.Font = Enum.Font.SourceSans
+    vu164.Text = "1"
+    vu164.TextColor3 = Color3.fromRGB(0, 0, 0)
+    vu164.TextScaled = true
+    vu164.TextSize = 14
+    vu164.TextWrapped = true
+    vu165.Name = "mine"
+    vu165.Parent = v158
+    vu165.BackgroundColor3 = Color3.fromRGB(123, 255, 247)
+    vu165.Position = UDim2.new(0.231578946, 0, 0.491228074, 0)
+    vu165.Size = UDim2.new(0, 45, 0, 29)
+    vu165.Font = Enum.Font.SourceSans
+    vu165.Text = "-"
+    vu165.TextColor3 = Color3.fromRGB(0, 0, 0)
+    vu165.TextScaled = true
+    vu165.TextSize = 14
+    vu165.TextWrapped = true
+    vu166.Name = "Close"
+    vu166.Parent = vu157.Frame
+    vu166.BackgroundColor3 = Color3.fromRGB(225, 25, 0)
+    vu166.Font = "SourceSans"
+    vu166.Size = UDim2.new(0, 45, 0, 28)
+    vu166.Text = "X"
+    vu166.TextSize = 30
+    vu166.Position = UDim2.new(0, 0, - 1, 27)
+    vu167.Name = "minimize"
+    vu167.Parent = vu157.Frame
+    vu167.BackgroundColor3 = Color3.fromRGB(192, 150, 230)
+    vu167.Font = "SourceSans"
+    vu167.Size = UDim2.new(0, 45, 0, 28)
+    vu167.Text = "-"
+    vu167.TextSize = 40
+    vu167.Position = UDim2.new(0, 44, - 1, 27)
+    vu168.Name = "minimize2"
+    vu168.Parent = vu157.Frame
+    vu168.BackgroundColor3 = Color3.fromRGB(192, 150, 230)
+    vu168.Font = "SourceSans"
+    vu168.Size = UDim2.new(0, 45, 0, 28)
+    vu168.Text = "+"
+    vu168.TextSize = 40
+    vu168.Position = UDim2.new(0, 44, - 1, 57)
+    vu168.Visible = false
+    speeds = 1
+    local vu169 = game:GetService("Players").LocalPlayer
+    local v170 = game.Players.LocalPlayer.Character
+    if v170 then
+        v170:FindFirstChildWhichIsA("Humanoid")
+    end
+    nowe = false
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "V\196\131n Th\195\160nh IOS",
+        Text = "By: V\196\131n Th\195\160nh IOS",
+        Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"
+    })
+    Duration = 5
+    v158.Active = true
+    v158.Draggable = true
+    vu161.MouseButton1Down:connect(function()
+        if nowe ~= true then
+            nowe = true
+            for _ = 1, speeds do
+                spawn(function()
+                    local v171 = game:GetService("RunService").Heartbeat
+                    tpwalking = true
+                    local v172 = game.Players.LocalPlayer.Character
+                    local v173
+                    if v172 then
+                        v173 = v172:FindFirstChildWhichIsA("Humanoid")
+                    else
+                        v173 = v172
                     end
+                    while tpwalking and (v171:Wait() and (v172 and (v173 and v173.Parent))) do
+                        if v173.MoveDirection.Magnitude > 0 then
+                            v172:TranslateBy(v173.MoveDirection)
+                        end
+                    end
+                end)
+            end
+            game.Players.LocalPlayer.Character.Animate.Disabled = true
+            local v174 = game.Players.LocalPlayer.Character
+            local v175 = v174:FindFirstChildOfClass("Humanoid") or v174:FindFirstChildOfClass("AnimationController")
+            local v176 = next
+            local v177, v178 = v175:GetPlayingAnimationTracks()
+            while true do
+                local v179
+                v178, v179 = v176(v177, v178)
+                if v178 == nil then
+                    break
+                end
+                v179:AdjustSpeed(0)
+            end
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, false)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, false)
+            vu169.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+        else
+            nowe = false
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, true)
+            vu169.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, true)
+            vu169.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+        end
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
+            local v180 = game.Players.LocalPlayer
+            local v181 = v180.Character.UpperTorso
+            local v182 = {
+                f = 0,
+                b = 0,
+                l = 0,
+                r = 0
+            }
+            local v183 = {
+                f = 0,
+                b = 0,
+                l = 0,
+                r = 0
+            }
+            local v184 = 50
+            local v185 = 0
+            local v186 = Instance.new("BodyGyro", v181)
+            v186.P = 90000
+            v186.maxTorque = Vector3.new(9000000000, 9000000000, 9000000000)
+            v186.cframe = v181.CFrame
+            local v187 = Instance.new("BodyVelocity", v181)
+            v187.velocity = Vector3.new(0, 0.1, 0)
+            v187.maxForce = Vector3.new(9000000000, 9000000000, 9000000000)
+            if nowe == true then
+                v180.Character.Humanoid.PlatformStand = true
+            end
+            while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
+                wait()
+                if v182.l + v182.r ~= 0 or v182.f + v182.b ~= 0 then
+                    v185 = v185 + 0.5 + v185 / v184
+                    if v184 < v185 then
+                        v185 = v184
+                    end
+                elseif v182.l + v182.r == 0 and (v182.f + v182.b == 0 and v185 ~= 0) then
+                    local v188 = v185 - 1
+                    v185 = v188 < 0 and 0 or v188
+                end
+                if v182.l + v182.r ~= 0 or v182.f + v182.b ~= 0 then
+                    v187.velocity = (game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (v182.f + v182.b) + (game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(v182.l + v182.r, (v182.f + v182.b) * 0.2, 0).p - game.Workspace.CurrentCamera.CoordinateFrame.p)) * v185
+                    v183 = {
+                        f = v182.f,
+                        b = v182.b,
+                        l = v182.l,
+                        r = v182.r
+                    }
+                elseif v182.l + v182.r ~= 0 or (v182.f + v182.b ~= 0 or v185 == 0) then
+                    v187.velocity = Vector3.new(0, 0, 0)
+                else
+                    v187.velocity = (game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (v183.f + v183.b) + (game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(v183.l + v183.r, (v183.f + v183.b) * 0.2, 0).p - game.Workspace.CurrentCamera.CoordinateFrame.p)) * v185
+                end
+                v186.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(- math.rad((v182.f + v182.b) * 50 * v185 / v184), 0, 0)
+            end
+            v186:Destroy()
+            v187:Destroy()
+            v180.Character.Humanoid.PlatformStand = false
+            game.Players.LocalPlayer.Character.Animate.Disabled = false
+            tpwalking = false
+        else
+            local v189 = game.Players.LocalPlayer
+            local v190 = v189.Character.Torso
+            local v191 = {
+                f = 0,
+                b = 0,
+                l = 0,
+                r = 0
+            }
+            local v192 = {
+                f = 0,
+                b = 0,
+                l = 0,
+                r = 0
+            }
+            local v193 = 50
+            local v194 = 0
+            local v195 = Instance.new("BodyGyro", v190)
+            v195.P = 90000
+            v195.maxTorque = Vector3.new(9000000000, 9000000000, 9000000000)
+            v195.cframe = v190.CFrame
+            local v196 = Instance.new("BodyVelocity", v190)
+            v196.velocity = Vector3.new(0, 0.1, 0)
+            v196.maxForce = Vector3.new(9000000000, 9000000000, 9000000000)
+            if nowe == true then
+                v189.Character.Humanoid.PlatformStand = true
+            end
+            while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
+                game:GetService("RunService").RenderStepped:Wait()
+                if v191.l + v191.r ~= 0 or v191.f + v191.b ~= 0 then
+                    v194 = v194 + 0.5 + v194 / v193
+                    if v193 < v194 then
+                        v194 = v193
+                    end
+                elseif v191.l + v191.r == 0 and (v191.f + v191.b == 0 and v194 ~= 0) then
+                    local v197 = v194 - 1
+                    v194 = v197 < 0 and 0 or v197
+                end
+                if v191.l + v191.r ~= 0 or v191.f + v191.b ~= 0 then
+                    v196.velocity = (game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (v191.f + v191.b) + (game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(v191.l + v191.r, (v191.f + v191.b) * 0.2, 0).p - game.Workspace.CurrentCamera.CoordinateFrame.p)) * v194
+                    v192 = {
+                        f = v191.f,
+                        b = v191.b,
+                        l = v191.l,
+                        r = v191.r
+                    }
+                elseif v191.l + v191.r ~= 0 or (v191.f + v191.b ~= 0 or v194 == 0) then
+                    v196.velocity = Vector3.new(0, 0, 0)
+                else
+                    v196.velocity = (game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (v192.f + v192.b) + (game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(v192.l + v192.r, (v192.f + v192.b) * 0.2, 0).p - game.Workspace.CurrentCamera.CoordinateFrame.p)) * v194
+                end
+                v195.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(- math.rad((v191.f + v191.b) * 50 * v194 / v193), 0, 0)
+            end
+            v195:Destroy()
+            v196:Destroy()
+            v189.Character.Humanoid.PlatformStand = false
+            game.Players.LocalPlayer.Character.Animate.Disabled = false
+            tpwalking = false
+        end
+    end)
+    local vu198 = nil
+    vu159.MouseButton1Down:connect(function()
+        vu198 = vu159.MouseEnter:connect(function()
+            while vu198 do
+                wait()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, 0)
+            end
+        end)
+    end)
+    vu159.MouseLeave:connect(function()
+        if vu198 then
+            vu198:Disconnect()
+            vu198 = nil
+        end
+    end)
+    local vu199 = nil
+    vu160.MouseButton1Down:connect(function()
+        vu199 = vu160.MouseEnter:connect(function()
+            while vu199 do
+                wait()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, - 1, 0)
+            end
+        end)
+    end)
+    vu160.MouseLeave:connect(function()
+        if vu199 then
+            vu199:Disconnect()
+            vu199 = nil
+        end
+    end)
+    game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(_)
+        wait(0.7)
+        game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+        game.Players.LocalPlayer.Character.Animate.Disabled = false
+    end)
+    vu163.MouseButton1Down:connect(function()
+        speeds = speeds + 1
+        vu164.Text = speeds
+        if nowe == true then
+            tpwalking = false
+            for _ = 1, speeds do
+                spawn(function()
+                    local v200 = game:GetService("RunService").Heartbeat
+                    tpwalking = true
+                    local v201 = game.Players.LocalPlayer.Character
+                    local v202
+                    if v201 then
+                        v202 = v201:FindFirstChildWhichIsA("Humanoid")
+                    else
+                        v202 = v201
+                    end
+                    while tpwalking and (v200:Wait() and (v201 and (v202 and v202.Parent))) do
+                        if v202.MoveDirection.Magnitude > 0 then
+                            v201:TranslateBy(v202.MoveDirection)
+                        end
+                    end
+                end)
+            end
+        end
+    end)
+    vu165.MouseButton1Down:connect(function()
+        if speeds ~= 1 then
+            speeds = speeds - 1
+            vu164.Text = speeds
+            if nowe == true then
+                tpwalking = false
+                for _ = 1, speeds do
+                    spawn(function()
+                        local v203 = game:GetService("RunService").Heartbeat
+                        tpwalking = true
+                        local v204 = game.Players.LocalPlayer.Character
+                        local v205
+                        if v204 then
+                            v205 = v204:FindFirstChildWhichIsA("Humanoid")
+                        else
+                            v205 = v204
+                        end
+                        while tpwalking and (v203:Wait() and (v204 and (v205 and v205.Parent))) do
+                            if v205.MoveDirection.Magnitude > 0 then
+                                v204:TranslateBy(v205.MoveDirection)
+                            end
+                        end
+                    end)
+                end
+            end
+        else
+            vu164.Text = "cannot be less than 1"
+            wait(1)
+            vu164.Text = speeds
+        end
+    end)
+    vu166.MouseButton1Click:Connect(function()
+        vu157:Destroy()
+    end)
+    vu167.MouseButton1Click:Connect(function()
+        vu159.Visible = false
+        vu160.Visible = false
+        vu161.Visible = false
+        vu163.Visible = false
+        vu164.Visible = false
+        vu165.Visible = false
+        vu167.Visible = false
+        vu168.Visible = true
+        vu157.Frame.BackgroundTransparency = 1
+        vu166.Position = UDim2.new(0, 0, - 1, 57)
+    end)
+    vu168.MouseButton1Click:Connect(function()
+        vu159.Visible = true
+        vu160.Visible = true
+        vu161.Visible = true
+        vu163.Visible = true
+        vu164.Visible = true
+        vu165.Visible = true
+        vu167.Visible = true
+        vu168.Visible = false
+        vu157.Frame.BackgroundTransparency = 0
+        vu166.Position = UDim2.new(0, 0, - 1, 27)
+    end)
+end)
+v2:addButton("hitbox Hi\225\187\135n", function()
+    _G.HeadSize = 60
+    _G.Disabled = true
+    game:GetService("RunService").RenderStepped:connect(function()
+        if _G.Disabled then
+            local v206 = next
+            local v207, v208 = game:GetService("Players"):GetPlayers()
+            while true do
+                local vu209
+                v208, vu209 = v206(v207, v208)
+                if v208 == nil then
+                    break
+                end
+                if vu209.Name ~= game:GetService("Players").LocalPlayer.Name then
+                    pcall(function()
+                        vu209.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize, _G.HeadSize, _G.HeadSize)
+                        vu209.Character.HumanoidRootPart.Transparency = 0.7
+                        vu209.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                        vu209.Character.HumanoidRootPart.Material = "Neon"
+                        vu209.Character.HumanoidRootPart.CanCollide = false
+                    end)
                 end
             end
         end
-    end
-    return v147
-end
-local function vu162()
-    if vu7 and (vu8 and (vu8.Character and vu48)) then
-        local v154 = vu8.Character:FindFirstChild("HumanoidRootPart")
-        if v154 then
-            local v155 = tick()
-            local v156 = v155 - vu10
-            vu10 = v155
-            local v157 = v154.Position
-            local v158 = vu9 and (v157 - vu9) / v156 or Vector3.new()
-            vu9 = v157
-            local v159 = 5 * ((vu5.CFrame.Position - v154.Position).Magnitude / 100)
-            local v160 = v157 + v158 * vu6
-            if vu13 then
-                v160 = v160 - Vector3.new(0, v159, 0)
+    end)
+end)
+v2:addButton("hitbox Kh\195\180ng", function()
+    local vu210 = false
+    game:GetService("UserInputService").JumpRequest:connect(function()
+        if vu210 then
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+        end
+    end)
+    local vu211 = game:GetService("VirtualUser")
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        vu211:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+        wait(1)
+        vu211:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    end)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "V\196\131n Th\195\160nh IOS",
+        Text = "\239\191\189\195\163 B\225\186\173t hitbox",
+        Duration = 1
+    })
+    wait(1)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "V\196\131n Th\195\160nh IOS",
+        Text = "YTB: @thanhdzso1",
+        Duration = 1
+    })
+    _G.HeadSize = 60
+    _G.Disabled = true
+    game:GetService("RunService").RenderStepped:connect(function()
+        if _G.Disabled then
+            local v212 = next
+            local v213, v214 = game:GetService("Players"):GetPlayers()
+            while true do
+                local vu215
+                v214, vu215 = v212(v213, v214)
+                if v214 == nil then
+                    break
+                end
+                if vu215.Name ~= game:GetService("Players").LocalPlayer.Name then
+                    pcall(function()
+                        vu215.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize, _G.HeadSize, _G.HeadSize)
+                        vu215.Character.HumanoidRootPart.Transparency = 1
+                        vu215.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really black")
+                        vu215.Character.HumanoidRootPart.Material = "Neon"
+                        vu215.Character.HumanoidRootPart.CanCollide = false
+                    end)
+                end
             end
-            local v161 = CFrame.new(vu5.CFrame.Position, v160)
-            vu5.CFrame = vu5.CFrame:Lerp(v161, 1)
-        else
-            vu140()
         end
-    else
-        if vu3.Character and vu3.Character:FindFirstChild("Humanoid") then
-            vu5.CameraSubject = vu3.Character.Humanoid
-            vu5.CameraType = Enum.CameraType.Custom
-        end
-        return
-    end
-end
-local function v163()
-    vu7 = not vu7
-    if vu7 then
-        vu19.Text = "Run ON"
-        vu8 = vu153()
-        if not vu8 then
-            vu7 = false
-            vu19.Text = "Run OFF"
-            vu140()
-            return
-        end
-        vu9 = vu8.Character.HumanoidRootPart.Position
-        vu10 = tick()
-        vu140()
-        vu11 = vu1.RenderStepped:Connect(vu162)
-    else
-        vu19.Text = "Run OFF"
-        if vu11 then
-            vu11:Disconnect()
-        end
-        vu8 = nil
-        vu9 = nil
-        vu140()
-        vu5.CameraType = Enum.CameraType.Custom
-    end
-end
-v15.MouseButton1Click:Connect(v163)
-v17.MouseButton1Click:Connect(function()
-    vu22.Visible = not vu22.Visible
+    end)
 end)
-v27.MouseButton1Click:Connect(function()
-    vu22.Visible = false
+v2:addButton("Aim Camera H\225\187\151 Tr\225\187\163", function()
+    loadstring(Game:HttpGet("https://raw.githubusercontent.com/VanThanhIOS/AlexAimBot/refs/heads/main/AimBotBanTumLum.lua.txt"))()
 end)
-vu5.CameraType = Enum.CameraType.Custom
+local v216 = v1.Tab_1:addSection():addMenu("Th\195\180ng Tin Admin")
+v216:addChangelog("Xin Ch\195\160o T\225\186\165t C\225\186\163 C\195\161c B\225\186\161n \226\157\164\239\184\143")
+v216:addChangelog("Hello Everyone \226\157\164\239\184\143")
+v216:addChangelog("Menu : V\196\131n Th\195\160nh IOS")
+v216:addChangelog("Th\195\180ng Tin Li\195\170n H\225\187\135")
+v216:addChangelog("YTB: @thanhdzso1")
+v216:addChangelog("Tik Tok: @vanthanhisme_")
+v216:addChangelog("FB : @vanthanhisme")
+v216:addChangelog("Goodbye Everyone")
