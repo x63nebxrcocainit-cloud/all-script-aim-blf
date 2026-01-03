@@ -2,7 +2,7 @@
 
 
 local v1 = {
-    Tab_1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/VanThanhIOS/OniiChanVanThanhIOS/refs/heads/main/main.txt"))():CreateWindow("V\196\131n Th\195\160nh Hub "):addTab("Home")
+    Tab_1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/VanThanhIOS/OniiChanVanThanhIOS/refs/heads/main/main.txt"))():CreateWindow("Chicken Hub "):addTab("Home")
 }
 local v2 = v1.Tab_1:addSection():addMenu("Ch\225\187\169c N\196\131ng")
 getgenv().WalkSpeedValue = 26
