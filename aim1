@@ -51,7 +51,7 @@ end
 
 local execStatus = (executor == "Xeno" or executor:lower():find("solara") or executor:lower():find("krnl")) and "Not Working" or "Working"
 
-local Window = Library.CreateLib("Sapi Hub BF PvP ˃ᴗ˂  |  " .. executor, UiSettingsModule.currentTheme)
+local Window = Library.CreateLib("Chicken Hub BF PvP ˃ᴗ˂  |  " .. executor, UiSettingsModule.currentTheme)
 
 local Tab = Window:NewTab("◇・Executor Status")
 local Section = Tab:NewSection("◈・Information")
